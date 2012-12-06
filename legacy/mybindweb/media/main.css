@@ -1,0 +1,169 @@
+body {
+    font-family: sans-serif;
+    font-size: 76%;
+    font-size: .8em;
+    color: #222222;
+    max-width: 850px;
+    min-width: 850px;
+}
+
+h1 {
+    color: rgb(255, 255, 255);
+    background-color: rgb(198, 16, 16);
+    display: inline-table;
+    padding: 5px;
+    margin: 0px;
+}
+
+td h2 {
+    margin-bottom: 7px;
+}
+
+hr {
+    height: 1px;
+    border-width: 0px;
+    background-color: rgb(198, 16, 16);
+    margin: 10px 2px 10px 1px;
+}
+
+th {
+    text-align: left;
+}
+
+th,
+td {
+    vertical-align: top;
+}
+
+th,
+td {
+    padding: 0px 5px 2px 0px;
+}
+
+ul {
+    padding-left: 0px;
+    margin-left: 12px;
+    list-style-position: inside;
+}
+
+img {
+    border-color: rgb(198, 16, 16);
+}
+
+.viewTable th,
+.viewTable td {
+    padding: 0px 15px 5px 0px;
+}
+
+.viewTable .action {
+    width: 16px;
+    height: 16px;
+    display: inline-table;
+    margin-right: 8px;
+}
+
+.zonesTable .edit {
+    background-image: url('/media/images/world_edit.png');
+}
+
+.zonesTable .delete {
+    background-image: url('/media/images/world_delete.png');
+}
+
+.zoneAdd {
+    background-image: url('/media/images/world_add.png');
+    background-repeat: no-repeat;
+    display: inline-table;
+    padding-left: 20px;
+}
+
+.formtable th {
+    padding: 5px 20px 5px 0px;
+}
+
+.errorlist {
+    padding: 0px;
+    margin: 5px 0px 5px 0px;
+    list-style: none;
+}
+
+.errorfield,
+.errorlist,
+.errorinfo {
+    color: red;
+}
+
+.errorfield input {
+    border: solid 1px red;
+}
+
+.formsetDelete {
+    background-image: url('/media/images/delete.png');
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+}
+
+.formsetAdd {
+    background-image: url('/media/images/add.png');
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    display: inline-table;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+.mainMenu {
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+}
+
+.mainMenu li {
+    list-style-type: none;
+    display: inline;
+    padding-right: 4px;
+}
+
+.footer {
+    color: #666666;
+    font-style: italic;
+    font-size: .8em;
+}
+
+.zonesTable td.status {
+    padding-left: 20px;
+    background-repeat: no-repeat;
+}
+
+.zonesTable td.status.SP {
+    color: blue;
+    background-image: url('/media/images/time.png');
+}
+
+.zonesTable td.status.SA {
+    color: green;
+    background-image: url('/media/images/sync.png');
+}
+
+.zonesTable td.status.OK {
+    color: green;
+    background-image: url('/media/images/tick.png');
+}
+
+.zonesTable td.status.SE {
+    color: red;
+    background-image: url('/media/images/error.png');
+}
+
+.layoutAd {
+    float: left;
+    margin-right: 15px;
+    padding-top: 15px;
+}
+
+.layoutContent {
+    float: left;
+    max-width: 650px;
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "nick@mybind.com", 
+      "first_name": "Nick", 
+      "last_name": "Bolton", 
+      "is_active": true, 
+      "is_superuser": true, 
+      "is_staff": true, 
+      "last_login": "2010-02-04 11:08:46", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$97fd6$1f0c84966ed150d2f26ef96d058d46c8d28c2a13", 
+      "email": "nick@mybind.com", 
+      "date_joined": "2010-02-04 11:08:21"
+    }
+  },
+  {
+    "pk": 1, 
+    "model": "mybindweb.customer", 
+    "fields": {
+      "register_complete": true, 
+      "register_date": "2010-02-09 22:47:40", 
+      "groups": [], 
+      "user_permissions": [], 
+      "last_login_ip": null
+    }
+  }
+]

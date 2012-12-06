@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Register</h2>
+<p>We've sent an email to <b>{{email}}</b> for verification.</p>
+<p>If this was typed incorrectly, please go back and try again.</p>
+
+{% if test_verify %}
+<p><a href="{% url views.register_verify test_verify.auth_code %}">Go to verify</a></p>
+{% endif %}
+
+{% endblock %}

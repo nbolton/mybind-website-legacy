@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="inline-group">
+  <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
+    {{ inline_admin_formset.formset.management_form }}
+
+    <fieldset class="module">
+      <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+      
+      <ul style="padding-top: 10px">
+      {% for inline_admin_form in inline_admin_formset %}
+         <li>{{ inline_admin_form.original }}</li>
+      {% endfor %}
+      </ul>
+      
+    </fieldset>
+  </div>
+
+  {# <ul class="tools"> #}
+  {#   <li><a class="add" href="">Add another {{ inline_admin_formset.opts.verbose_name|title }}</a></li> #}
+  {# </ul> #}
+
+</div>

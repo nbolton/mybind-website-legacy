@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Welcome</h2>
+<p>Thanks for registering! You're now logged in and ready to get started.</p>
+<ul>
+    <li><a href="{% url views.account_index %}">Go to account</a></li>
+</ul>
+
+{% endblock %}

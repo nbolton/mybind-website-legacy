@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+  <head>
+    <title>{% block title %}MyBind{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <link rel="stylesheet" href="/media/main.css" />
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body>
+    <h1>MyBind</h1>
+    <ul class="mainMenu">
+      <li><a href="{% url views.index %}">Home</a></li>
+      <li><a href="{% url views.zones_index %}">Zones</a></li>
+      <li><a href="{% url views.help %}">Help</a></li>
+      <li><a href="{% url views.account_index %}">My account</a></li>
+      <li><a href="{% url views.about %}">About</a></li>
+      {% if show_admin_url %}<li><a href="/admin/">Admin</a></li>{% endif %}
+      <li><a href="{% url views.logout %}">Logout</a></li>
+    </ul>
+    <div class="layoutContent">
+      {% block content %}{% endblock %}
+      <p class="footer">Copyright &copy; 2011 Nick Bolton</p>
+    </div>
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-10292290-9");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+  </body>
+</html>

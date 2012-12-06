@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - MyBind{% endblock %}
+
+{% block content %}
+
+<h2>Contact</h2>
+
+{% if thanks %}
+
+<p>Thanks for contacting us, we'll email you back as soon as we can.</p>
+
+{% else %}
+
+<p>Feel free to contact us with requests for help, features, or bug fixes.</p>
+
+<form method="post">
+  <table cellpadding="0" cellspacing="0" border="0" class="formtable">
+    {% for field in form %}
+    <tr {% if field.errors %}class="errorfield"{% endif %}>
+      <th>{{ field.label_tag }}:</th>
+      <td>
+	{{ field }}
+	{{ field.errors }}
+      </td>
+    <tr>
+    {% endfor %}
+    <tr>
+      <td colspan="2" style="text-align: right; padding-top: 10px">
+	<input type="submit" value="Send" />
+      </td>
+    </tr>
+  </table>
+</form>
+
+{% endif %}
+
+{% endblock %}

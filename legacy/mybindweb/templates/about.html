@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}About - MyBind {% endblock %}
+
+{% block content %}
+
+<h2>About</h2>
+<p>
+    <em>MyBind</em> is a free sysadmin friendly DNS hosting service. The
+	interface is clean, simple and un-cluttered; focusing having useful
+	features.
+</p>
+<p>
+    The underlying DNS server is <em>ISC BIND</em>, the most
+	commonly used DNS server on the Internet (according to Wikipedia).
+	MyBind has two geographically dispersed name servers
+	(<em>ns1.mybind.com</em> and <em>ns2.mybind.com</em>), to provide
+	standard DNS redundancy (<a href="http://www.ietf.org/rfc/rfc2182.txt">RFC 2182</a>).
+</p>
+
+{% endblock %}

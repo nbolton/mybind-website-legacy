@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/media/jquery.js"></script>
+<script type="text/javascript" src="/media/jquery.debug.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<h2>Zones</h2>
+
+{% if zones %}
+
+<table cellpadding="0" cellspacing="0" border="0" class="viewTable zonesTable">
+    <tr>
+        <th>Zone</th>
+        <th>Status</th>
+        {% if show_deleted %}<th>Deleted</th>{% endif %}
+        <th>Actions</th>
+    </tr>
+    {% for zone in zones.all %}
+    {% url views.zones_delete zone.pk as delete_url %}
+    {% url views.zones_edit zone.pk as edit_url %}
+    <tr>
+        <td class="name">{{ zone.name }}</td>
+        <td class="status {{ zone.sync_state }}"
+            {% ifequal zone.sync_state 'SE' %} title="{{ zone.sync_msg }}"{% endifequal %}>
+            {{ zone.sync_status_msg }}
+            {% ifequal zone.sync_cmd 'DP' %}
+            {% ifequal zone.sync_state 'SP' %}
+                (<a href="{{ delete_url }}?undo=1">abort</a>)
+            {% endifequal %}
+            {% endifequal %}
+        </td>
+        
+        {% if show_deleted %}
+        <td>
+            {{ zone.deleted }}
+            {% if zone.deleted %}
+            {% ifequal zone.sync_state 'OK' %}
+            (<a href="{{ delete_url }}?undo=1">undo</a>)
+            {% endifequal %}
+            {% endif %}
+        </td>
+        {% endif %}
+        
+        <td>
+            <a class="edit action" href="{{ edit_url }}" />
+            <a class="delete action" href="{{ delete_url }}" />
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script type="text/javascript">
+
+$('a.delete.action').click(function() {
+    var name = $(this).parent().parent().find('td.name').html()
+    return confirm('Are you sure you want to delete ' + name + '?\n')
+})
+
+</script>
+
+{% else %}
+<p><em>There are no zones, you should add one.</em></p>
+{% endif %}
+
+<p><a class="zoneAdd" href="{% url views.zones_new %}">New zone</a></p>
+
+{% if show_deleted %}
+<p><a href="{% url views.zones_index %}">Hide deleted</a></p>
+{% else %}
+<p><a href="{% url views.zones_index %}?show_deleted=1">Show deleted</a></p>
+{% endif %}
+
+{% endblock %}

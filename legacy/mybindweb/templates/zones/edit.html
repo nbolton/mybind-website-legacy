@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/media/jquery.js"></script>
+<script type="text/javascript" src="/media/jquery.formset.min.js"></script>
+<script type="text/javascript">  
+  $(function() {
+    $('#id_dnsrecord_table tbody tr').formset({
+      prefix: '{{ rec_formset.prefix }}',
+      addText: 'New record',
+      deleteText: '',
+      added: function(row) {
+	
+	// show off by fading in
+	row.fadeIn()
+	
+      },
+      removed: function(row) {
+	
+	// get the row number from the tr html id using regex
+	var row_regex = new RegExp('{{ rec_formset.prefix }}-(\\d+)')
+	row_regex_val = row_regex.exec(row.attr('id'))
+	
+	if (row_regex_val != null) {
+	  
+	  // since the row exists in the database, we need to leave it hidden
+	  // with the delete checkbox checked (so that it gets deleted)
+	  row_num = row_regex_val[1]
+	  delete_id = "#id_{{ rec_formset.prefix }}-" + row_num + "-DELETE"
+	  row.find(delete_id).attr('checked', true)
+	  row.fadeOut()
+	  
+	} else {
+	  
+	  // if we can't get a row number, then the row does not yet exist
+	  // in the database -- so it's safe to just remove the row
+	  row.fadeOut(function() {
+	    
+	    // once faded out, remove from the formset
+	    row.remove()
+	  })
+	}
+      }
+    })
+  })
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>Zone Editor</h2>
+<p>Not sure about all this? <a href="{% url views.help %}">Read the help page</a>.</p>
+
+{% if zone_form.errors or rec_formset.errors %}
+<p class="errorinfo">Please correct any problems on the form, and try again.</p>
+{% endif %}
+
+<form method="post">
+  <table cellpadding="0" cellspacing="0" border="0" class="formtable">
+    {% for zone_field in zone_form %}
+    <tr {% if zone_field.errors %}class="errorfield"{% endif %}>
+      <th>{{ zone_field.label_tag }}:</th>
+      <td>
+	{{ zone_field }}
+	{{ zone_field.errors }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  
+  <h3>Records</h3>
+  <p>SOA and NS records are automatically included.</p>
+  <table id="id_dnsrecord_table" cellpadding="0" cellspacing="0" border="0">
+    <thead>
+      <tr>
+	<th>Name</th>
+	<th>TTL</th>
+	<th>Type</th>
+	<th>Aux</th>
+	<th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rec_form in rec_formset.forms %}
+      <tr id="{{ rec_form.prefix }}-row">
+	<td {% if rec_form.name.errors %}class="errorfield"{% endif %}>{{ rec_form.name }}</td>
+	<td {% if rec_form.ttl.errors %}class="errorfield"{% endif %}>{{ rec_form.ttl }}</td>
+	<td {% if rec_form.type.errors %}class="errorfield"{% endif %}>{{ rec_form.type }}</td>
+	<td {% if rec_form.aux.errors %}class="errorfield"{% endif %}>{{ rec_form.aux }}</td>
+	<td {% if rec_form.data.errors %}class="errorfield"{% endif %}>{{ rec_form.data }}</td>
+	<td>
+	  {{ rec_form.DELETE }}
+	  {{ rec_form.id }}
+	  <script>$("#id_{{ rec_form.prefix }}-{{ rec_form.id.value }}DELETE").hide()</script>
+	</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {{ rec_formset.management_form }}
+  <p>Seriously, <a href="{% url views.help %}">read the help page</a>!</p>
+  <div style="margin-top: 10px">
+    <input type="submit" value="Save" />
+    <input type="button" value="Cancel" onclick="self.location = '/zones/'" />
+  </div>
+</form>
+{% endblock %}

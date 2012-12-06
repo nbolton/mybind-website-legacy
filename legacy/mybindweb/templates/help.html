@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Help - MyBind {% endblock %}
+
+{% block content %}
+
+<h2>Help</h2>
+<p>
+    This page focuses on actual issues and misconceptions that real MyBind
+    users have had. Please read it fully and carefully, it won't take 5
+    minutes.
+</p>
+
+<h3>Example configs</h3>
+<p><a href="/media/images/zone_editor.png" target="_blank"><img border="1" src="/media/images/zone_editor_thumb.png" width="100" height="100" alt="Zone editor" /></a></p>
+
+<h3>Name servers</h3>
+<p>
+    On your domain registrar control panel, use the following name servers for
+    your domain name:
+    <ul>
+        <li>ns1.mybind.com</li>
+        <li>ns2.mybind.com</li>
+    </ul>
+</p>
+
+<h3>Common bind errors</h3>
+<p>If you see the <img src="/media/images/error.png" style="height: 16px, width: 16px" /> error icon, hover your mouse over to see the error.
+<table>
+    <tr>
+        <th>Bind error</th>
+        <th>Meaning</th>
+    </tr>
+    <tr>
+        <td>multiple RRs of singleton type</td>
+        <td>Zone may have multiple CNAME records for a given name.</td>
+    </tr>
+    <tr>
+        <td>bad dotted quad</td>
+        <td>A record does not have IP address value.</td>
+    </tr>
+    <tr>
+        <td>not a valid number</td>
+        <td>MX record missing aux value (priority).</td>
+    </tr>
+</table>
+
+<h3>About those dots</h3>
+<p>
+    Some users seem to get confused about the FQDN qualifier (the dot you put
+    at the end of domain names). Appending a dot to domain names simply makes
+    the name fully qualified instead of being short-hand. This applies to data
+    which is entered into the <em>name</em> and <em>data</em> fields for a zone
+    record. You do not append this to the actual name of your zone, because
+    it's already fully qualified (this is just the way BIND works - sorry if
+    it's confusing).
+</p>
+<p>
+    Assuming we've named our zone "foobar.com", here's some
+    rules for the <b>record</b> name and data fields (in the zone editor):
+    <ul>
+        <li>"mail.foobar.com" actually means "mail.foobar.com.foobar.com.";</li>
+        <li>And, "mail.foobar.com." (see the dot) is fully qualified.</li>
+        <li><b>But</b>, for record <em>names</em>, it's often best to use shorthand;</li>
+        <li>Because "mail" means "mail.foobar.com." (so use "mail").</li>
+    </ul>
+</p>
+
+<h3>TTL and caching</h3>
+<p>
+    "Please wait 24 hours" they say; it's a common misconception that all
+    DNS updates take 24 hours to update. This depends entirely on your TTL for
+    the zone (or individual records). TTL stands for "time to live". With
+    MyBind, you choose the TTL that works for you. When a DNS client (or an
+    ISP's DNS server) downloads your zone data, it will cache it for as long
+    as the TTL; lets say it's 300 seconds. After 300 seconds of being in the
+    DNS client's cache, it will become stale, and the DNS client will download
+    fresh data when requested.
+</p>
+<p>
+    Adjusting the TTL can be useful for migrating websites to a different
+    server with a new IP, where the site is using a database, and the old
+    database must not be updated. You simply adjust the TTL to 120 seconds
+    (2 minutes, which is the RFC recommended minimum), wait for any existing
+    DNS client cache to expire, and then change the IP on the A record. This
+    way, your maximum downtime is only 2 minutes. You could set the TTL to
+    1 second if you like, but this is widely regarded as risky.
+</p>
+
+<h3>Tips &amp; Tricks</h3>
+<p>
+Use the <a href="http://dig.menandmice.com/knowledgehub/tools/dig" target="_blank">Men &amp; Mice DIG online</a> website to test your DNS records - it's pretty good.
+</p>
+
+<p>
+If you're still not sure about all of this, then please <a href="{% url views.contact %}">contact us</a>.
+</p>
+
+{% endblock %}
